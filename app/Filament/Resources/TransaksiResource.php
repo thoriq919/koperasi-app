@@ -15,6 +15,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Malzariey\FilamentDaterangepickerFilter\Fields\DateRangePicker;
+use Malzariey\FilamentDaterangepickerFilter\Filters\DateRangeFilter;
 
 class TransaksiResource extends Resource
 {
@@ -171,6 +173,7 @@ class TransaksiResource extends Resource
                         'Bank' => 'Bank',
                         'Kas' => 'Kas',
                     ]),
+                DateRangeFilter::make('created_at')->alwaysShowCalendar(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
