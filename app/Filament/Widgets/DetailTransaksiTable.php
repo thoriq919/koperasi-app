@@ -6,7 +6,7 @@ use App\Filament\Exports\DetailTransaksiExporter;
 use App\Models\Akun;
 use App\Models\DetailTransaksi;
 use Filament\Tables;
-use Filament\Tables\Actions\ExportAction;
+use Filament\Tables\Actions\ExportBulkAction;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
 use Malzariey\FilamentDaterangepickerFilter\Filters\DateRangeFilter;
@@ -49,12 +49,10 @@ class DetailTransaksiTable extends BaseWidget
                 DateRangeFilter::make('created_at')->alwaysShowCalendar(),
             ])
             ->actions([
-                
+            
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    ExportAction::make()->exporter(DetailTransaksiExporter::class)->label('Export Data')
-                ]),
+                ExportBulkAction::make()->exporter(DetailTransaksiExporter::class)->label('Export Data')
             ]);
     }
 

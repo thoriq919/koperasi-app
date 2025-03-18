@@ -5,13 +5,17 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\SuratMasukResource\Pages;
 use App\Filament\Resources\SuratMasukResource\RelationManagers;
 use App\Models\SuratMasuk;
+use App\Notifications\SuratMasukCreated;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class SuratMasukResource extends Resource
@@ -21,8 +25,6 @@ class SuratMasukResource extends Resource
     protected static ?string $navigationGroup = 'Surat';
 
     protected static ?string $navigationLabel = 'Surat Masuk';
-
-    // protected static ?string $navigationIcon = 'heroicon-o-envelope';
 
     public static function form(Form $form): Form
     {
@@ -140,5 +142,15 @@ class SuratMasukResource extends Resource
             'create' => Pages\CreateSuratMasuk::route('/create'),
             'edit' => Pages\EditSuratMasuk::route('/{record}/edit'),
         ];
+    }
+
+    protected function afterCreate(): void
+    {
+        Log::info('created');
+        $user = Auth::user();
+        Log::info($user);
+        // if ($user) {
+        //     Notification::send($user, new SuratMasukCreated($record));
+        // }
     }
 }
